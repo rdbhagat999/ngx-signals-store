@@ -21,7 +21,7 @@ export class PostListComponent implements OnInit {
 
   constructor() {
     const query = this.postStore.filter.query;
-    // 👇 Re-fetch books whenever the value of query signal changes.
+    // 👇 Re-fetch posts whenever the value of query signal changes.
     this.postStore.loadByQuery(query);
   }
 

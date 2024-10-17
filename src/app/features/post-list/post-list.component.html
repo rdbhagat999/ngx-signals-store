@@ -1,0 +1,9 @@
+<p>Books: {{ postStore.posts() | json }}</p>
+<p>Loading: {{ postStore.isLoading() }}</p>
+
+<!-- 👇 The `DeepSignal` value can be read in the same way as `Signal`. -->
+<p>Pagination: {{ postStore.filter() | json }}</p>
+
+<!-- 👇 Nested signals are created as `DeepSignal` properties. -->
+<p>Query: {{ postStore.filter.query() }}</p>
+<p>Order: {{ postStore.filter.order() }}</p>

@@ -6,11 +6,12 @@ import {
 } from '@angular/core';
 import { PostStore } from '../../store/posts.store';
 import { JsonPipe } from '@angular/common';
+import { PostListItemComponent } from './post-list-item/post-list-item.component';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [JsonPipe, PostListItemComponent],
   providers: [PostStore],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.scss',

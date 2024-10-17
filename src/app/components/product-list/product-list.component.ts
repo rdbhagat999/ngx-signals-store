@@ -6,11 +6,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { ProductStore } from '../../store/products.store';
+import { ProductListItemComponent } from './product-list-item/product-list-item.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [JsonPipe, ProductListItemComponent],
   providers: [ProductStore],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',

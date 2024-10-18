@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
-import { User } from '../store/user.model';
+import { inject, Injectable } from '@angular/core';
+import { LoginResponse, User } from '../store/user.model';
 import { of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BACKEND_API } from '../utils/backend_api';
 
 const USER_DATA = [
   {
@@ -222,6 +224,9 @@ const USER_DATA = [
   providedIn: 'root',
 })
 export class UserService {
+  private readonly _http = inject(HttpClient);
+  private readonly _backend_url = inject(BACKEND_API);
+
   constructor() {}
 
   async getAll() {
@@ -230,5 +235,12 @@ export class UserService {
 
   getByQuery(query: any) {
     return of([...USER_DATA] as User[]);
+  }
+
+  authenticate(loginRequestParams: { username: string; password: string }) {
+    return this._http.post<LoginResponse>(
+      `${this._backend_url}/auth/login`,
+      loginRequestParams
+    );
   }
 }

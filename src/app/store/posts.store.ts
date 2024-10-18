@@ -59,7 +59,7 @@ export const PostStore = signalStore(
         distinctUntilChanged(),
         tap(() => patchState(store, { isLoading: true })),
         switchMap((query) => {
-          return postService.getByQuery(query as string).pipe(
+          return postService.getByQuery(query).pipe(
             tapResponse({
               next: (posts) => patchState(store, { posts, isLoading: false }),
               error: (err) => {

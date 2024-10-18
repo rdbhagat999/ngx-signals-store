@@ -1,0 +1,15 @@
+<!-- <p>Users: {{ userStore.users() | json }}</p>
+<p>Loading: {{ userStore.isLoading() }}</p>
+
+<p>Pagination: {{ userStore.filter() | json }}</p>
+
+<p>Query: {{ userStore.filter.query() }}</p>
+<p>Order: {{ userStore.filter.order() }}</p> -->
+
+<ul class="mx-auto max-w-xl divide-y divide-gray-200 dark:divide-gray-700">
+   @for (item of userStore.users(); track item?.id) {
+      <li class="pb-3 sm:pb-4">
+         <app-user-list-item [item]="item"></app-user-list-item>
+      </li>
+   }
+</ul>

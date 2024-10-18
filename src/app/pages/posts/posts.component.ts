@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PostListComponent } from '../../components/post-list/post-list.component';
 
 @Component({
@@ -7,5 +7,6 @@ import { PostListComponent } from '../../components/post-list/post-list.componen
   imports: [PostListComponent],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostsComponent {}

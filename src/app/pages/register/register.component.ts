@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-account',
+  selector: 'app-register',
   standalone: true,
   imports: [],
-  templateUrl: './account.component.html',
-  styleUrl: './account.component.scss',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccountComponent {}
+export class RegisterComponent {}

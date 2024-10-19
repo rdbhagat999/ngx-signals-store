@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Post } from '../../../store/post.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-post-list-item',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './post-list-item.component.html',
   styleUrl: './post-list-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

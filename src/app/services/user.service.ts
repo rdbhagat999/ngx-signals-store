@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BACKEND_API } from '../utils/backend_api';
 import { SessionStorageService } from './session-storage.service';
 import { ACCESS_TOKEN_KEY } from '../utils/constants';
+import { Router } from '@angular/router';
 
 const USER_DATA: User[] = [
   {
@@ -47,6 +48,7 @@ const USER_DATA: User[] = [
 })
 export class UserService {
   private readonly _http = inject(HttpClient);
+  private readonly _router = inject(Router);
   private readonly _backend_url = inject(BACKEND_API);
   private readonly _sessionStorageService = inject(SessionStorageService);
 
@@ -72,5 +74,10 @@ export class UserService {
       `${this._backend_url}/auth/login`,
       loginRequestParams
     );
+  }
+
+  async handleLogout() {
+    this._sessionStorageService.removeItem(ACCESS_TOKEN_KEY);
+    this._router.navigate(['/login']);
   }
 }

@@ -1,43 +1,39 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
+import { WINDOW } from '../utils/backend_api';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SessionStorageService extends StorageService {
-  constructor() {
-    super();
+export class SessionStorageService implements StorageService {
+  private window = inject(WINDOW);
+
+  constructor() {}
+
+  getItem(key: string): any {
+    const item = this.window.sessionStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
   }
 
-  override getItem(key: string): any {
+  setItem(key: string, value: any): void {
     try {
-      const item = sessionStorage.getItem(key);
-      item ? JSON.parse(item) : null;
-    } catch (error) {
-      console.log('[SessionStorageService: getItem]', error);
-      return null;
-    }
-  }
-
-  override setItem(key: string, value: any): void {
-    try {
-      sessionStorage.setItem(key, JSON.stringify(value));
+      this.window.sessionStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
       console.log('[SessionStorageService: setItem]', error);
     }
   }
 
-  override removeItem(key: string): void {
+  removeItem(key: string): void {
     try {
-      sessionStorage.removeItem(key);
+      this.window.sessionStorage.removeItem(key);
     } catch (error) {
       console.log('[SessionStorageService: removeItem]', error);
     }
   }
 
-  override removeAllItems(): void {
+  removeAllItems(): void {
     try {
-      sessionStorage.clear();
+      this.window.sessionStorage.clear();
     } catch (error) {
       console.log('[SessionStorageService: removeAllItems]', error);
     }

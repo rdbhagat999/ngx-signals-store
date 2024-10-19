@@ -1,17 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   inject,
   OnInit,
-  signal,
   Signal,
 } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+// import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { UserStore } from '../../../store/users.store';
-import { SessionStorageService } from '../../../services/session-storage.service';
-import { ACCESS_TOKEN_KEY } from '../../../utils/constants';
 import { User } from '../../../store/user.model';
 import { AsyncPipe } from '@angular/common';
 import { DeepSignal, getState } from '@ngrx/signals';
@@ -26,8 +22,6 @@ import { DeepSignal, getState } from '@ngrx/signals';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements OnInit {
-  private readonly _sessionStorageService = inject(SessionStorageService);
-  private readonly _router = inject(Router);
   readonly userStore = inject(UserStore);
 
   authUser: Signal<User | null>; // Signal to hold the authUser
@@ -46,8 +40,6 @@ export class NavbarComponent implements OnInit {
   }
 
   handleLogout() {
-    this._sessionStorageService.removeItem(ACCESS_TOKEN_KEY);
-    this.userStore.updateAuthstate(null, false);
-    this._router.navigate(['/login']);
+    this.userStore.handleLogout();
   }
 }

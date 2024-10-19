@@ -27,16 +27,16 @@ import { User } from '../../store/user.model';
   providers: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private readonly _fb = new FormBuilder();
   form: FormGroup;
 
-  private readonly _sessionStorageService = inject(SessionStorageService);
-  private readonly _userService = inject(UserService);
+  // private readonly _sessionStorageService = inject(SessionStorageService);
+  // private readonly _userService = inject(UserService);
   readonly userStore = inject(UserStore);
-  private readonly _router = inject(Router);
+  // private readonly _router = inject(Router);
 
   private readonly subs: Subscription[] = [];
 
@@ -51,50 +51,44 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   handleOnSubmit() {
     if (this.form.valid) {
-      this.subs.push(
-        this._userService.authenticate(this.form.value).subscribe({
-          next: (userResp) => {
-            console.log('login request next');
+      // this.subs.push(
+      //   this._userService.authenticate(this.form.value).subscribe({
+      //     next: (userResp) => {
+      //       console.log('login request next');
 
-            this._sessionStorageService.setItem(
-              ACCESS_TOKEN_KEY,
-              userResp.accessToken
-            );
+      //       this._sessionStorageService.setItem(
+      //         ACCESS_TOKEN_KEY,
+      //         userResp.accessToken
+      //       );
 
-            const authUser = {
-              id: userResp.id,
-              firstName: userResp.firstName,
-              lastName: userResp.lastName,
-              email: userResp.email,
-              username: userResp.username,
-              password: userResp.password,
-              birthDate: userResp.birthDate,
-              role: userResp.role,
-              image: userResp.image,
-            } satisfies User;
+      //       const authUser = {
+      //         id: userResp.id,
+      //         firstName: userResp.firstName,
+      //         lastName: userResp.lastName,
+      //         email: userResp.email,
+      //         username: userResp.username,
+      //         password: userResp.password,
+      //         birthDate: userResp.birthDate,
+      //         role: userResp.role,
+      //         image: userResp.image,
+      //       } satisfies User;
 
-            this.userStore.updateAuthstate(authUser, true);
-            // this.userStore.loadAuthUserDetails({ isLoggedIn: true });
+      //       this.userStore.updateAuthstate(authUser, true);
+      //       // this.userStore.loadAuthUserDetails({ isLoggedIn: true });
 
-            this._router.navigate(['/']);
-          },
-          error(err) {
-            console.log('login request error');
-            console.log(err);
-          },
-          complete() {
-            console.log('login request completed');
-          },
-        })
-      );
+      //       this._router.navigate(['/']);
+      //     },
+      //     error(err) {
+      //       console.log('login request error');
+      //       console.log(err);
+      //     },
+      //     complete() {
+      //       console.log('login request completed');
+      //     },
+      //   })
+      // );
 
-      // const loginQuery = signal(this.form.value);
-
-      // if (loginQuery().username && loginQuery().password) {
-      //   this.userStore.loginUser(loginQuery);
-      // }
-
-      // this.userStore.loginUser(this.form.value);
+      this.userStore.loginUser(this.form.value);
     }
   }
 

@@ -30,6 +30,8 @@ import {
 } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { SessionStorageService } from '../services/session-storage.service';
+import { ACCESS_TOKEN_KEY } from '../utils/constants';
 
 type UserStoreState = {
   users: User[];
@@ -61,7 +63,12 @@ export const UserStore = signalStore(
     }),
   })),
   withMethods(
-    (store, router = inject(Router), userService = inject(UserService)) => ({
+    (
+      store,
+      router = inject(Router),
+      sessionStorageService = inject(SessionStorageService),
+      userService = inject(UserService)
+    ) => ({
       async loadAll(): Promise<void> {
         patchState(store, { isLoading: true });
 
@@ -103,27 +110,10 @@ export const UserStore = signalStore(
           })
         )
       ),
-      loginUser: rxMethod<{ username: string; password: string }>(
-        pipe(
-          debounceTime(300),
-          distinctUntilChanged(),
-          tap(() => patchState(store, { isLoading: true })),
-          switchMap((query) => {
-            return userService.authenticate(query).pipe(
-              tapResponse({
-                next: (authUser) => {
-                  patchState(store, { authUser, isLoading: false });
-                  return router.navigate(['/']);
-                },
-                error: (err) => {
-                  patchState(store, { isLoading: false });
-                  console.error(err);
-                },
-              })
-            );
-          })
-        )
-      ),
+      handleLogout(): void {
+        this.updateAuthstate(null, false);
+        userService.handleLogout();
+      },
       updateAuthstate(authUser: User | null, isLoggedIn: boolean): void {
         console.log('before updateAuthstate', getState(store));
         patchState(store, (state) => ({ ...state, authUser, isLoggedIn }));
@@ -137,6 +127,52 @@ export const UserStore = signalStore(
       updateOrder(order: 'asc' | 'desc'): void {
         patchState(store, (state) => ({ filter: { ...state.filter, order } }));
       },
+      loginUser: rxMethod<{ username: string; password: string }>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap((query) => {
+            return userService.authenticate(query).pipe(
+              tapResponse({
+                next: (authUser) => {
+                  patchState(store, {
+                    authUser,
+                    isLoggedIn: true,
+                  });
+                  sessionStorageService.setItem(
+                    ACCESS_TOKEN_KEY,
+                    authUser.accessToken
+                  );
+                  return query;
+                },
+                error: (err) => {
+                  patchState(store, { isLoggedIn: false, isLoading: false });
+                  console.error(err);
+                },
+              })
+            );
+          }),
+          switchMap((_) => {
+            return userService.fetchAuthUserDetails().pipe(
+              tapResponse({
+                next: (authUser) => {
+                  patchState(store, {
+                    authUser,
+                    isLoggedIn: true,
+                    isLoading: false,
+                  });
+                  return router.navigate(['/']);
+                },
+                error: (err) => {
+                  patchState(store, { isLoggedIn: false, isLoading: false });
+                  console.error(err);
+                },
+              })
+            );
+          })
+        )
+      ),
     })
   ),
   withHooks({

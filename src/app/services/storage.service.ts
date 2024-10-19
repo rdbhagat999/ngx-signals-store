@@ -1,16 +1,9 @@
-import { Injectable } from '@angular/core';
+export interface StorageService {
+  getItem(key: string): any;
 
-@Injectable({
-  providedIn: 'root',
-})
-export abstract class StorageService {
-  constructor() {}
+  setItem(key: string, value: any): void;
 
-  getItem(key: string): any {}
+  removeItem(key: string): void;
 
-  setItem(key: string, value: any): void {}
-
-  removeItem(key: string): void {}
-
-  removeAllItems(): void {}
+  removeAllItems(): void;
 }

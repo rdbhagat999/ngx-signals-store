@@ -12,7 +12,7 @@ import { ProductListItemComponent } from './product-list-item/product-list-item.
   selector: 'app-product-list',
   standalone: true,
   imports: [JsonPipe, ProductListItemComponent],
-  providers: [ProductStore],
+  providers: [],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

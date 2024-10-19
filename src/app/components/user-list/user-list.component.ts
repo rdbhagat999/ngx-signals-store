@@ -12,7 +12,7 @@ import { UserStore } from '../../store/users.store';
   selector: 'app-user-list',
   standalone: true,
   imports: [JsonPipe, UserListItemComponent],
-  providers: [UserStore],
+  providers: [],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,5 +26,9 @@ export class UserListComponent implements OnInit {
     this.userStore.loadByQuery(query);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.userStore.updateQuery('sophiab');
+    }, 5000);
+  }
 }

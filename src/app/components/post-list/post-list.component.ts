@@ -12,7 +12,7 @@ import { PostListItemComponent } from './post-list-item/post-list-item.component
   selector: 'app-post-list',
   standalone: true,
   imports: [JsonPipe, PostListItemComponent],
-  providers: [PostStore],
+  providers: [],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -24,14 +24,9 @@ const initialState: ProductStoreState = {
   filter: { query: '', order: 'asc' },
 } satisfies ProductStoreState;
 
-const POST_STATE = new InjectionToken<ProductStoreState>('ProductStoreState', {
-  // 👇 Providing `ProductsStore` at the root level.
-  providedIn: 'root',
-  factory: () => initialState,
-});
-
 export const ProductStore = signalStore(
-  withState(() => inject(POST_STATE)),
+  { providedIn: 'root' },
+  withState(initialState),
   // 👇 Accessing previously defined state and computed signals.
   withComputed(({ products, filter }) => ({
     productsCount: computed(() => products().length),

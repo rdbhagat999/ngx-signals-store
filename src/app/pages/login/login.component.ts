@@ -4,6 +4,7 @@ import {
   inject,
   OnDestroy,
   OnInit,
+  signal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -23,7 +24,7 @@ import { User } from '../../store/user.model';
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule],
-  providers: [UserStore],
+  providers: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -72,7 +73,9 @@ export class LoginComponent implements OnInit, OnDestroy {
               image: userResp.image,
             } satisfies User;
 
-            this.userStore.updateAuthstate(Object.assign({}, authUser));
+            this.userStore.updateAuthstate(authUser, true);
+            // this.userStore.loadAuthUserDetails({ isLoggedIn: true });
+
             this._router.navigate(['/']);
           },
           error(err) {
@@ -84,6 +87,14 @@ export class LoginComponent implements OnInit, OnDestroy {
           },
         })
       );
+
+      // const loginQuery = signal(this.form.value);
+
+      // if (loginQuery().username && loginQuery().password) {
+      //   this.userStore.loginUser(loginQuery);
+      // }
+
+      // this.userStore.loginUser(this.form.value);
     }
   }
 

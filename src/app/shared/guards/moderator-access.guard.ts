@@ -1,11 +1,11 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn } from '@angular/router';
 import { UserStore } from '../../store/users.store';
 
-export const adminAccessGuard: CanActivateFn = (route, state) => {
+export const moderatorAccessGuard: CanActivateFn = (route, state) => {
   const userStore = inject(UserStore);
 
-  if (userStore.authUser()?.role !== 'admin') {
+  if (userStore.authUser()?.role !== 'moderator') {
     return false;
   }
 

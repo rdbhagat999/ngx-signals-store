@@ -27,8 +27,8 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.userStore.updateQuery('sophiab');
-    }, 5000);
+    // setTimeout(() => {
+    //   this.userStore.updateQuery('sophiab');
+    // }, 5000);
   }
 }

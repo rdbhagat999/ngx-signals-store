@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { authGuard } from './shared/guards/auth.guard';
 import { adminAccessGuard } from './shared/guards/admin-access.guard';
 import { canDeactivateComponentGuard } from './shared/guards/can-deactivate-component.guard';
+import { moderatorAccessGuard } from './shared/guards/moderator-access.guard';
+import { adminOrModeratorAccessGuard } from './shared/guards/admin-or-moderator-access.guard';
 
 export const routes: Routes = [
   {
@@ -30,7 +32,7 @@ export const routes: Routes = [
         path: 'users',
         loadComponent: () =>
           import('./pages/users/users.component').then((m) => m.UsersComponent),
-        canActivate: [authGuard, adminAccessGuard],
+        canActivate: [authGuard, adminOrModeratorAccessGuard],
       },
       {
         path: 'posts',
@@ -44,6 +46,7 @@ export const routes: Routes = [
           import('./pages/products/products.component').then(
             (m) => m.ProductsComponent
           ),
+        canActivate: [authGuard],
       },
       {
         path: 'admin-dashboard',
@@ -52,6 +55,14 @@ export const routes: Routes = [
             (m) => m.AdminDashboardComponent
           ),
         canActivate: [authGuard, adminAccessGuard],
+      },
+      {
+        path: 'moderator-dashboard',
+        loadComponent: () =>
+          import(
+            './pages/moderator-dashboard/moderator-dashboard.component'
+          ).then((m) => m.ModeratorDashboardComponent),
+        canActivate: [authGuard, moderatorAccessGuard],
       },
       {
         path: 'account',

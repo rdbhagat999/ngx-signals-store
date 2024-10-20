@@ -1,15 +1,17 @@
-import { computed, inject, InjectionToken } from '@angular/core';
+import { computed, effect, inject, InjectionToken } from '@angular/core';
 import {
+  getState,
   patchState,
   signalStore,
   withComputed,
+  withHooks,
   withMethods,
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tapResponse } from '@ngrx/operators';
 import { debounceTime, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
-import { ProductService } from '../services/product.service';
+import { ProductService } from '../shared/services/product.service';
 import { Product } from './product.model';
 
 type ProductStoreState = {
@@ -74,5 +76,14 @@ export const ProductStore = signalStore(
     updateOrder(order: 'asc' | 'desc'): void {
       patchState(store, (state) => ({ filter: { ...state.filter, order } }));
     },
-  }))
+  })),
+  withHooks({
+    onInit(store) {
+      effect(() => {
+        // 👇 The effect is re-executed on state change.
+        const state = getState(store);
+        console.log('state', state);
+      });
+    },
+  })
 );

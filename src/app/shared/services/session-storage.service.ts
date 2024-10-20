@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
-import { WINDOW } from '../utils/backend_api';
+import { WINDOW } from '../../utils/backend_api';
 
 @Injectable({
   providedIn: 'root',

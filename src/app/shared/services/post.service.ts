@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Post } from '../store/post.model';
+import { Post } from '../../store/post.model';
 import { of } from 'rxjs';
 
 const POST_DATA: Post[] = [

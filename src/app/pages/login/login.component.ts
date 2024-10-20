@@ -12,11 +12,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../shared/services/user.service';
 import { UserStore } from '../../store/users.store';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { SessionStorageService } from '../../services/session-storage.service';
+import { SessionStorageService } from '../../shared/services/session-storage.service';
 import { ACCESS_TOKEN_KEY } from '../../utils/constants';
 import { User } from '../../store/user.model';
 
@@ -90,6 +90,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       this.userStore.loginUser(this.form.value);
     }
+  }
+
+  canDeactivate(): boolean {
+    if (
+      !this.form.pristine ||
+      this.form.touched ||
+      this.form.dirty ||
+      this.form.invalid
+    ) {
+      return confirm(
+        'Are you sure you want to leave? Unsaved changes will be lost.'
+      );
+    }
+    return true;
   }
 
   ngOnDestroy(): void {

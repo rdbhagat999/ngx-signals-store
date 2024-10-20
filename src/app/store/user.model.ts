@@ -3,6 +3,7 @@ export type LoginResponse = {
   firstName: string;
   lastName: string;
   birthDate: string;
+  gender: string;
   email: string;
   username: string;
   password: string;

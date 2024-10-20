@@ -17,7 +17,7 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { UserService } from '../services/user.service';
+import { UserService } from '../shared/services/user.service';
 import { tapResponse } from '@ngrx/operators';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import {
@@ -30,7 +30,7 @@ import {
 } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { SessionStorageService } from '../services/session-storage.service';
+import { SessionStorageService } from '../shared/services/session-storage.service';
 import { ACCESS_TOKEN_KEY } from '../utils/constants';
 
 type UserStoreState = {
@@ -156,7 +156,19 @@ export const UserStore = signalStore(
           switchMap((_) => {
             return userService.fetchAuthUserDetails().pipe(
               tapResponse({
-                next: (authUser) => {
+                next: (u) => {
+                  const authUser = {
+                    id: u.id,
+                    firstName: u.firstName,
+                    lastName: u.lastName,
+                    gender: u.gender,
+                    email: u.email,
+                    username: u.username,
+                    password: u.password,
+                    birthDate: u.birthDate,
+                    role: u.role,
+                    image: u.image,
+                  } satisfies User;
                   patchState(store, {
                     authUser,
                     isLoggedIn: true,

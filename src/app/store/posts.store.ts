@@ -1,15 +1,17 @@
-import { computed, inject, InjectionToken } from '@angular/core';
+import { computed, effect, inject, InjectionToken } from '@angular/core';
 import {
+  getState,
   patchState,
   signalStore,
   withComputed,
+  withHooks,
   withMethods,
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tapResponse } from '@ngrx/operators';
 import { debounceTime, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
-import { PostService } from '../services/post.service';
+import { PostService } from '../shared/services/post.service';
 import { Post } from './post.model';
 
 type PostStoreState = {
@@ -73,5 +75,14 @@ export const PostStore = signalStore(
     updateOrder(order: 'asc' | 'desc'): void {
       patchState(store, (state) => ({ filter: { ...state.filter, order } }));
     },
-  }))
+  })),
+  withHooks({
+    onInit(store) {
+      effect(() => {
+        // 👇 The effect is re-executed on state change.
+        const state = getState(store);
+        console.log('state', state);
+      });
+    },
+  })
 );

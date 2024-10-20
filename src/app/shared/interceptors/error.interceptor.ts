@@ -1,9 +1,9 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { ToastMessageService } from './toast-message.service';
+import { ToastMessageService } from '../services/toast-message.service';
 import { inject } from '@angular/core';
-import { UserService } from './user.service';
+import { UserService } from '../services/user.service';
 import { catchError, throwError } from 'rxjs';
-import { UserStore } from '../store/users.store';
+import { UserStore } from '../../store/users.store';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   console.log('errorInterceptor', req.method, req.url);

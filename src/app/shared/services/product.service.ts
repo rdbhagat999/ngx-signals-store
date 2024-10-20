@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../store/product.model';
+import { Product } from '../../store/product.model';
 import { of } from 'rxjs';
 
 const PRODUCT_DATA = [

@@ -7,7 +7,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { BACKEND_API } from './utils/backend_api';
 import { authInterceptor } from './shared/auth.interceptor';
 import { provideToastr } from 'ngx-toastr';
-import { errorInterceptor } from './services/error.interceptor';
+import { errorInterceptor } from './shared/interceptors/error.interceptor';
 // import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 
 export const appConfig: ApplicationConfig = {

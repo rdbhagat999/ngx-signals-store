@@ -4,10 +4,10 @@
     </div>
 
     <div class="flex-1 min-w-0">
-        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-           {{item().username}}
+        <p class="capitalize text-sm font-medium text-gray-900 truncate dark:text-white">
+           {{item().username | genderTitle: item().gender}}
         </p>
-        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+        <p class="capitalize text-sm text-gray-500 truncate dark:text-gray-400">
            {{item().role}}
         </p>
     </div>

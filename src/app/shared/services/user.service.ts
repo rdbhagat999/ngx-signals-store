@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { LoginResponse, User } from '../store/user.model';
+import { LoginResponse, User } from '../../store/user.model';
 import { of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BACKEND_API } from '../utils/backend_api';
+import { HttpClient } from '@angular/common/http';
+import { BACKEND_API } from '../../utils/backend_api';
 import { SessionStorageService } from './session-storage.service';
-import { ACCESS_TOKEN_KEY } from '../utils/constants';
+import { ACCESS_TOKEN_KEY } from '../../utils/constants';
 import { Router } from '@angular/router';
 
 const USER_DATA: User[] = [
@@ -12,6 +12,7 @@ const USER_DATA: User[] = [
     id: 1,
     firstName: 'Emily',
     lastName: 'Johnson',
+    gender: 'female',
     email: 'emily.johnson@x.dummyjson.com',
     username: 'emilys',
     password: 'emilyspass',
@@ -23,6 +24,7 @@ const USER_DATA: User[] = [
     id: 2,
     firstName: 'Michael',
     lastName: 'Williams',
+    gender: 'male',
     email: 'michael.williams@x.dummyjson.com',
     username: 'michaelw',
     password: 'michaelwpass',
@@ -34,6 +36,7 @@ const USER_DATA: User[] = [
     id: 3,
     firstName: 'Sophia',
     lastName: 'Brown',
+    gender: 'male',
     email: 'sophia.brown@x.dummyjson.com',
     username: 'sophiab',
     password: 'sophiabpass',

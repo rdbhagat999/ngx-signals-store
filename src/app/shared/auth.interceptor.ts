@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { ACCESS_TOKEN_KEY } from '../utils/constants';
-import { SessionStorageService } from '../services/session-storage.service';
+import { SessionStorageService } from './services/session-storage.service';
 import { inject } from '@angular/core';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {

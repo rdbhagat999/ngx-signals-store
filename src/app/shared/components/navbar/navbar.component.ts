@@ -3,14 +3,13 @@ import {
   Component,
   inject,
   OnInit,
+  signal,
   Signal,
 } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-// import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserStore } from '../../../store/users.store';
 import { User } from '../../../store/user.model';
 import { AsyncPipe } from '@angular/common';
-import { DeepSignal, getState } from '@ngrx/signals';
 
 @Component({
   selector: 'app-navbar',
@@ -25,6 +24,18 @@ export class NavbarComponent implements OnInit {
   readonly userStore = inject(UserStore);
 
   authUser: Signal<User | null>; // Signal to hold the authUser
+
+  readonly navLinks = signal([
+    { path: '/', label: 'Home' },
+    { path: '/posts', label: 'Posts' },
+    { path: '/products', label: 'Products' },
+    { path: '/users', label: 'Users' },
+    { path: '/admin-dashboard', label: 'Admin Only' },
+    { path: '/moderator-dashboard', label: 'Moderator Only' },
+    // { path: '/account', label: 'Account' },
+    { path: '/login', label: 'Login' },
+    { path: '/register', label: 'Register' },
+  ]);
 
   constructor() {
     this.authUser = this.userStore.authUser;

@@ -27,7 +27,8 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  form: FormGroup;
+  form!: FormGroup;
+  loginRoleForm!: FormGroup;
   private readonly _fb = new FormBuilder();
   readonly router = inject(Router);
   readonly userStore = inject(UserStore);
@@ -38,15 +39,54 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor() {
     this.form = this._fb.group({
-      username: ['emilys', Validators.required],
-      password: ['emilyspass', Validators.required],
+      username: ['logant', Validators.required],
+      password: ['logantpass', Validators.required],
     });
+
+    this.initLoginRoleForm();
   }
 
   ngOnInit(): void {
     if (this.userStore.authUser()) {
       this.router.navigate(['/']);
     }
+  }
+
+  initLoginRoleForm() {
+    this.loginRoleForm = this._fb.group({
+      loginRole: ['user'],
+    });
+
+    this.subs.push(
+      this.loginRoleForm.valueChanges.subscribe(({ loginRole }) => {
+        switch (loginRole) {
+          case 'admin':
+            this.form.patchValue({
+              username: 'emilys',
+              password: 'emilyspass',
+            });
+            break;
+          case 'moderator':
+            this.form.patchValue({
+              username: 'oliviaw',
+              password: 'oliviawpass',
+            });
+            break;
+          case 'user':
+            this.form.patchValue({
+              username: 'logant',
+              password: 'logantpass',
+            });
+            break;
+          default:
+            this.form.patchValue({
+              username: 'logant',
+              password: 'logantpass',
+            });
+            break;
+        }
+      })
+    );
   }
 
   handleOnSubmit() {

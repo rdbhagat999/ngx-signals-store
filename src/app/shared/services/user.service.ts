@@ -4,7 +4,7 @@ import { delay, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BACKEND_API } from '../../utils/backend_api';
 import { SessionStorageService } from './session-storage.service';
-import { ACCESS_TOKEN_KEY } from '../../utils/constants';
+import { ACCESS_TOKEN_KEY, AUTH_USER_KEY } from '../../utils/constants';
 import { Router } from '@angular/router';
 
 const USER_DATA: User[] = [
@@ -91,6 +91,7 @@ export class UserService {
 
   async handleLogout() {
     this._sessionStorageService.removeItem(ACCESS_TOKEN_KEY);
+    this._sessionStorageService.removeItem(AUTH_USER_KEY);
     this._router.navigate(['/login']);
   }
 }

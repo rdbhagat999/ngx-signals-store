@@ -34,11 +34,6 @@ export class NavbarComponent implements OnInit {
     console.log('onInit authUser', this.authUser());
   }
 
-  onBtnClick() {
-    console.log('onBtnClick: getState', getState(this.userStore)?.authUser);
-    console.log('onBtnClick: authUser', this.authUser());
-  }
-
   handleLogout() {
     this.userStore.handleLogout();
   }

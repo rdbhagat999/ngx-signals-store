@@ -16,9 +16,6 @@ import { UserService } from '../../shared/services/user.service';
 import { UserStore } from '../../store/users.store';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { SessionStorageService } from '../../shared/services/session-storage.service';
-import { ACCESS_TOKEN_KEY } from '../../utils/constants';
-import { User } from '../../store/user.model';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +29,7 @@ import { User } from '../../store/user.model';
 export class LoginComponent implements OnInit, OnDestroy {
   form: FormGroup;
   private readonly _fb = new FormBuilder();
+  readonly router = inject(Router);
   readonly userStore = inject(UserStore);
 
   isSubmitted = signal(false);
@@ -45,49 +43,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.userStore.authUser()) {
+      this.router.navigate(['/']);
+    }
+  }
 
   handleOnSubmit() {
+    this.isSubmitted.set(false);
+
     if (this.form.valid) {
       this.isSubmitted.set(true);
-
-      // this.subs.push(
-      //   this._userService.authenticate(this.form.value).subscribe({
-      //     next: (userResp) => {
-      //       console.log('login request next');
-
-      //       this._sessionStorageService.setItem(
-      //         ACCESS_TOKEN_KEY,
-      //         userResp.accessToken
-      //       );
-
-      //       const authUser = {
-      //         id: userResp.id,
-      //         firstName: userResp.firstName,
-      //         lastName: userResp.lastName,
-      //         email: userResp.email,
-      //         username: userResp.username,
-      //         password: userResp.password,
-      //         birthDate: userResp.birthDate,
-      //         role: userResp.role,
-      //         image: userResp.image,
-      //       } satisfies User;
-
-      //       this.userStore.updateAuthstate(authUser, true);
-      //       // this.userStore.loadAuthUserDetails({ isLoggedIn: true });
-
-      //       this._router.navigate(['/']);
-      //     },
-      //     error(err) {
-      //       console.log('login request error');
-      //       console.log(err);
-      //     },
-      //     complete() {
-      //       console.log('login request completed');
-      //     },
-      //   })
-      // );
-
       this.userStore.loginUser(this.form.value);
     }
   }

@@ -22,6 +22,7 @@ import {
 } from '../../shared/validators/custom-validators';
 import { JsonPipe } from '@angular/common';
 import { UsernameAsyncValidator } from '../../shared/validators/async-username-exists-validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -35,6 +36,7 @@ import { UsernameAsyncValidator } from '../../shared/validators/async-username-e
 export class RegisterComponent implements OnInit, OnDestroy {
   form: FormGroup;
   readonly userStore = inject(UserStore);
+  readonly router = inject(Router);
   private readonly subs: Subscription[] = [];
 
   isSubmitted = signal(false);
@@ -72,11 +74,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.form
-    //   .get('confirm_password')
-    //   ?.addValidators([
-    //     matchValidator(this.form, 'password', 'Passwords do not match'),
-    //   ]);
+    if (this.userStore.authUser()) {
+      this.router.navigate(['/']);
+    }
   }
 
   get username() {
@@ -90,7 +90,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   handleOnSubmit() {
-    console.log('this.isSubmitted', this.isSubmitted());
+    this.isSubmitted.set(false);
+
     console.log('username_errors', this.form.get('username')?.errors);
     console.log('password_errors', this.form.get('password')?.errors);
     console.log(
@@ -102,10 +103,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     if (this.form.valid) {
       this.isSubmitted.set(true);
-
       console.log('status', this.form.status);
       console.log(this.form.value);
     }
+
+    console.log('this.isSubmitted', this.isSubmitted());
   }
 
   canDeactivate(): boolean {

@@ -31,7 +31,7 @@ import {
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { SessionStorageService } from '../shared/services/session-storage.service';
-import { ACCESS_TOKEN_KEY } from '../utils/constants';
+import { ACCESS_TOKEN_KEY, AUTH_USER_KEY } from '../utils/constants';
 
 type UserStoreState = {
   users: User[];
@@ -144,6 +144,9 @@ export const UserStore = signalStore(
                     ACCESS_TOKEN_KEY,
                     authUser.accessToken
                   );
+
+                  sessionStorageService.setItem(AUTH_USER_KEY, authUser);
+
                   return query;
                 },
                 error: (err) => {
@@ -169,11 +172,14 @@ export const UserStore = signalStore(
                     role: u.role,
                     image: u.image,
                   } satisfies User;
+
                   patchState(store, {
                     authUser,
                     isLoggedIn: true,
                     isLoading: false,
                   });
+
+                  sessionStorageService.setItem(AUTH_USER_KEY, authUser);
                   return router.navigate(['/']);
                 },
                 error: (err) => {

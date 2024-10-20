@@ -8,7 +8,7 @@ export type LoginResponse = {
   username: string;
   password: string;
   image: string;
-  role: string;
+  role: 'admin' | 'moderator' | 'user';
   accessToken: string;
   refreshToken: string;
 };

@@ -4,6 +4,7 @@ import {
   inject,
   OnDestroy,
   OnInit,
+  signal,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -33,10 +34,10 @@ import { UsernameAsyncValidator } from '../../shared/validators/async-username-e
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   form: FormGroup;
-
   readonly userStore = inject(UserStore);
-
   private readonly subs: Subscription[] = [];
+
+  isSubmitted = signal(false);
 
   constructor(private usernameAsyncValidator: UsernameAsyncValidator) {
     this.form = new FormGroup(
@@ -54,7 +55,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           validators: [Validators.required],
         }),
         confirm_password: new FormControl('', {
-          validators: [],
+          validators: [Validators.required],
         }),
       },
       {
@@ -89,6 +90,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   handleOnSubmit() {
+    console.log('this.isSubmitted', this.isSubmitted());
     console.log('username_errors', this.form.get('username')?.errors);
     console.log('password_errors', this.form.get('password')?.errors);
     console.log(
@@ -99,12 +101,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
     console.log('formValid', this.form.valid);
 
     if (this.form.valid) {
+      this.isSubmitted.set(true);
+
+      console.log('status', this.form.status);
       console.log(this.form.value);
     }
   }
 
   canDeactivate(): boolean {
-    if (this.form.touched || this.form.dirty) {
+    console.log('this.isSubmitted', this.isSubmitted());
+
+    if (!this.isSubmitted() && this.form.dirty) {
       return confirm(
         'Are you sure you want to leave? Unsaved changes will be lost.'
       );

@@ -30,13 +30,11 @@ import { User } from '../../store/user.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  private readonly _fb = new FormBuilder();
   form: FormGroup;
-
-  // private readonly _sessionStorageService = inject(SessionStorageService);
-  // private readonly _userService = inject(UserService);
+  private readonly _fb = new FormBuilder();
   readonly userStore = inject(UserStore);
-  // private readonly _router = inject(Router);
+
+  isSubmitted = signal(false);
 
   private readonly subs: Subscription[] = [];
 
@@ -51,6 +49,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   handleOnSubmit() {
     if (this.form.valid) {
+      this.isSubmitted.set(true);
+
       // this.subs.push(
       //   this._userService.authenticate(this.form.value).subscribe({
       //     next: (userResp) => {
@@ -93,7 +93,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   canDeactivate(): boolean {
-    if (this.form.touched || this.form.dirty) {
+    console.log('this.isSubmitted', this.isSubmitted());
+
+    if (!this.isSubmitted() && this.form.dirty) {
       return confirm(
         'Are you sure you want to leave? Unsaved changes will be lost.'
       );

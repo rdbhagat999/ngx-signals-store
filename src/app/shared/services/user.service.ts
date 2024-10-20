@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { LoginResponse, User } from '../../store/user.model';
-import { of } from 'rxjs';
+import { delay, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BACKEND_API } from '../../utils/backend_api';
 import { SessionStorageService } from './session-storage.service';
@@ -54,6 +54,16 @@ export class UserService {
   private readonly _router = inject(Router);
   private readonly _backend_url = inject(BACKEND_API);
   private readonly _sessionStorageService = inject(SessionStorageService);
+
+  private existingUsernames = ['emilys', 'superman', 'joker', 'luthor'];
+
+  validateUsername(value: string) {
+    return of(
+      this.existingUsernames.some(
+        (a) => a?.toLowerCase() === value?.toLowerCase()
+      )
+    ).pipe(delay(1000));
+  }
 
   constructor() {}
 

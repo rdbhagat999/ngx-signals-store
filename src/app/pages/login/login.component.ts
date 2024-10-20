@@ -93,12 +93,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   canDeactivate(): boolean {
-    if (
-      !this.form.pristine ||
-      this.form.touched ||
-      this.form.dirty ||
-      this.form.invalid
-    ) {
+    if (this.form.touched || this.form.dirty) {
       return confirm(
         'Are you sure you want to leave? Unsaved changes will be lost.'
       );

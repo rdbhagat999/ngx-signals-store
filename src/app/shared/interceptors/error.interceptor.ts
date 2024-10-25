@@ -1,7 +1,6 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { ToastMessageService } from '../services/toast-message.service';
 import { inject } from '@angular/core';
-import { UserService } from '../services/user.service';
 import { catchError, throwError } from 'rxjs';
 import { UserStore } from '../../store/users.store';
 
@@ -34,8 +33,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           console.log(err);
           showError(err.error.message);
         }
-      } else {
+      } else if (err instanceof Error) {
         console.log('Client-side error');
+        showError(err.message);
       }
       return throwError(() => err);
     })

@@ -16,6 +16,7 @@ import { cacheInterceptor } from './shared/interceptors/cache.interceptor';
 import {
   provideClientHydration,
   withEventReplay,
+  withIncrementalHydration,
 } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
@@ -27,7 +28,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([errorInterceptor, authInterceptor, cacheInterceptor])
     ),
     provideRouter(routes),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withIncrementalHydration()),
     provideHttpClient(withFetch()),
   ],
 };

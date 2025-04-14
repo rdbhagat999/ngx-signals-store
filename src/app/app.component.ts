@@ -6,7 +6,7 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
@@ -16,7 +16,7 @@ import { AUTH_USER_KEY } from './utils/constants';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent],
   providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

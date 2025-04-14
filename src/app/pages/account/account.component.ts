@@ -10,10 +10,11 @@ import { GenderTitlePipe } from '../../shared/pipes/gender-title.pipe';
 import { User } from '../../store/user.model';
 import { Router } from '@angular/router';
 import { MetaTagService } from '../../meta-tag.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-account',
-  imports: [GenderTitlePipe],
+  imports: [GenderTitlePipe, NgOptimizedImage],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

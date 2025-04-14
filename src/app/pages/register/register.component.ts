@@ -34,6 +34,8 @@ import { MetaTagService } from '../../meta-tag.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit, OnDestroy {
+  private usernameAsyncValidator = inject(UsernameAsyncValidator);
+
   private readonly metaTagService = inject(MetaTagService);
 
   form: FormGroup;
@@ -43,7 +45,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   isSubmitted = signal(false);
 
-  constructor(private usernameAsyncValidator: UsernameAsyncValidator) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     this.metaTagService.updateTitle('Register');
     this.metaTagService.updateMetaTag(
       'description',

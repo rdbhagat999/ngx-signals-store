@@ -1,9 +1,26 @@
-<div class="w-full mx-auto max-w-3xl bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <div class="flex flex-col items-center py-10 gap-4">
-        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" [src]="authUser?.image" [alt]="authUser?.firstName"/>
-       <div class="text-center">
-         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white capitalize">{{authUser?.firstName | genderTitle: authUser?.gender}} {{authUser?.lastName}}</h5>
-        <span class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{authUser?.gender}} - {{authUser?.role}}</span>
-       </div>
+<div
+  class="w-full mx-auto max-w-3xl bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+>
+  <div class="flex flex-col items-center py-10 gap-4 relative">
+    <img
+      class="w-24 h-24 mb-3 rounded-full shadow-lg"
+      width="96"
+      height="96"
+      [ngSrc]="authUser?.image"
+      [alt]="authUser?.firstName"
+      priority
+      placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAW0lEQVRYR2PsWr8h1PVu2e9Vzw/13frrsXmmptun33mW3+x51rnwN7bcCpU+v4+W8oyjDhgNgdEQGA2B0RAYDYHREBgNgdEQGA2B0RAYDYHREBgNgdEQGOgQAABL4AjIMPTW8wAAAABJRU5ErkJggg=="
+    />
+    <div class="text-center">
+      <h5
+        class="mb-1 text-xl font-medium text-gray-900 dark:text-white capitalize"
+      >
+        {{ authUser?.firstName | genderTitle : authUser?.gender }}
+        {{ authUser?.lastName }}
+      </h5>
+      <span class="text-sm text-gray-500 dark:text-gray-400 capitalize"
+        >{{ authUser?.gender }} - {{ authUser?.role }}</span
+      >
     </div>
+  </div>
 </div>

@@ -10,7 +10,12 @@ import { UserService } from '../services/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class UsernameAsyncValidator implements AsyncValidator {
-  constructor(private userService: UserService) {}
+  private userService = inject(UserService);
+
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {}
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     return this.userService

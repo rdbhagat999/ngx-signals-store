@@ -6,10 +6,12 @@
 <p>Query: {{ postStore.filter.query() }}</p>
 <p>Order: {{ postStore.filter.order() }}</p> -->
 
+@defer (on immediate; prefetch on idle; hydrate on immediate) {
 <ul class="mx-auto max-w-xl divide-y divide-gray-200 dark:divide-gray-700">
-   @for (item of postStore.posts(); track item?.id) {
-      <li class="pb-3 sm:pb-4">
-         <app-post-list-item [item]="item"></app-post-list-item>
-      </li>
-   }
+  @for (item of postStore.posts(); track item?.id) {
+  <li class="pb-3 sm:pb-4">
+    <app-post-list-item [item]="item"></app-post-list-item>
+  </li>
+  }
 </ul>
+}

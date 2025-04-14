@@ -1,6 +1,7 @@
 <div class="flex items-center space-x-4 rtl:space-x-reverse">
   <div class="flex-shrink-0 relative">
-    @if (item().thumbnail) {
+    @if (item().thumbnail) { @defer (on immediate; prefetch on immediate;
+    hydrate on immediate) {
     <img
       class="w-8 h-8 rounded-full"
       width="32"
@@ -9,7 +10,7 @@
       [alt]="item().title"
       priority
     />
-    }
+    }}
   </div>
 
   <div class="flex-1 min-w-0">

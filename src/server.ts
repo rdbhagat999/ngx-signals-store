@@ -26,6 +26,24 @@ const angularApp = new AngularNodeAppEngine();
  * ```
  */
 
+// Add robots.txt route
+app.get('/robots.txt', (req, res) => {
+  const productionRules = `User-agent: *
+Allow: /
+`;
+
+  const developmentRules = `User-agent: *
+Disallow: /`;
+
+  const content =
+    process.env['NODE_ENV'] === 'production'
+      ? productionRules
+      : developmentRules;
+
+  res.type('text/plain');
+  res.send(content);
+});
+
 /**
  * Serve static files from /browser
  */
@@ -34,7 +52,7 @@ app.use(
     maxAge: '1y',
     index: false,
     redirect: false,
-  }),
+  })
 );
 
 /**
@@ -44,7 +62,7 @@ app.use('/**', (req, res, next) => {
   angularApp
     .handle(req)
     .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
+      response ? writeResponseToNodeResponse(response, res) : next()
     )
     .catch(next);
 });

@@ -1,7 +1,7 @@
 <section class="bg-white dark:bg-gray-900 mx-auto">
-  <div class="py-6 px-4 mx-auto max-w-screen-xl text-center lg:py-12">
+  <div class="py-6 px-4 mx-auto max-w-screen-xl text-center lg:py-4">
     <h1
-      class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
+      class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl dark:text-white"
     >
       Angular {{ angularFullVersion }} SSR Demo
     </h1>
@@ -16,6 +16,7 @@
     </p>
   </div>
 
+  @defer (on immediate; hydrate never) {
   <h2
     class="mb-4 text-xl font-extrabold text-center tracking-tight leading-none text-gray-900 md:text-2xl lg:text-3xl dark:text-white"
   >
@@ -60,4 +61,5 @@
       Custom Validators
     </li>
   </ul>
+  }
 </section>

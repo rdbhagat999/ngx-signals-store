@@ -12,13 +12,12 @@ import { User } from '../../../store/user.model';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [RouterLink, RouterLinkActive, AsyncPipe],
-  providers: [],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-navbar',
+    imports: [RouterLink, RouterLinkActive, AsyncPipe],
+    providers: [],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent implements OnInit {
   readonly userStore = inject(UserStore);

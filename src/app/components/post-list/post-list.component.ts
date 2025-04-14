@@ -9,13 +9,12 @@ import { JsonPipe } from '@angular/common';
 import { PostListItemComponent } from './post-list-item/post-list-item.component';
 
 @Component({
-  selector: 'app-post-list',
-  standalone: true,
-  imports: [JsonPipe, PostListItemComponent],
-  providers: [],
-  templateUrl: './post-list.component.html',
-  styleUrl: './post-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-post-list',
+    imports: [JsonPipe, PostListItemComponent],
+    providers: [],
+    templateUrl: './post-list.component.html',
+    styleUrl: './post-list.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostListComponent implements OnInit {
   readonly postStore = inject(PostStore);

@@ -11,12 +11,11 @@ import { User } from '../../store/user.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-account',
-  standalone: true,
-  imports: [GenderTitlePipe],
-  templateUrl: './account.component.html',
-  styleUrl: './account.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-account',
+    imports: [GenderTitlePipe],
+    templateUrl: './account.component.html',
+    styleUrl: './account.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountComponent implements OnInit {
   readonly userStore = inject(UserStore);

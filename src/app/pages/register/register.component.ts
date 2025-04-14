@@ -25,13 +25,12 @@ import { UsernameAsyncValidator } from '../../shared/validators/async-username-e
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe],
-  providers: [UsernameAsyncValidator],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-register',
+    imports: [ReactiveFormsModule, JsonPipe],
+    providers: [UsernameAsyncValidator],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   form: FormGroup;

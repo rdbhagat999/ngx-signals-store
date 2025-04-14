@@ -23,16 +23,19 @@ import {
 import { JsonPipe } from '@angular/common';
 import { UsernameAsyncValidator } from '../../shared/validators/async-username-exists-validator';
 import { Router } from '@angular/router';
+import { MetaTagService } from '../../meta-tag.service';
 
 @Component({
-    selector: 'app-register',
-    imports: [ReactiveFormsModule, JsonPipe],
-    providers: [UsernameAsyncValidator],
-    templateUrl: './register.component.html',
-    styleUrl: './register.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-register',
+  imports: [ReactiveFormsModule, JsonPipe],
+  providers: [UsernameAsyncValidator],
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit, OnDestroy {
+  private readonly metaTagService = inject(MetaTagService);
+
   form: FormGroup;
   readonly userStore = inject(UserStore);
   readonly router = inject(Router);
@@ -41,6 +44,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
   isSubmitted = signal(false);
 
   constructor(private usernameAsyncValidator: UsernameAsyncValidator) {
+    this.metaTagService.updateTitle('Register');
+    this.metaTagService.updateMetaTag(
+      'description',
+      'This is the register page of the Angular application.'
+    );
+
     this.form = new FormGroup(
       {
         username: new FormControl('', {

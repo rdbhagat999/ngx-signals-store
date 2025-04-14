@@ -16,16 +16,18 @@ import { UserService } from '../../shared/services/user.service';
 import { UserStore } from '../../store/users.store';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { MetaTagService } from '../../meta-tag.service';
 
 @Component({
-    selector: 'app-login',
-    imports: [ReactiveFormsModule],
-    providers: [],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-login',
+  imports: [ReactiveFormsModule],
+  providers: [],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  private readonly metaTagService = inject(MetaTagService);
   form!: FormGroup;
   loginRoleForm!: FormGroup;
   private readonly _fb = new FormBuilder();
@@ -37,6 +39,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   private readonly subs: Subscription[] = [];
 
   constructor() {
+    this.metaTagService.updateTitle('Login');
+    this.metaTagService.updateMetaTag(
+      'description',
+      'This is the login page of the Angular application.'
+    );
+
     this.form = this._fb.group({
       username: ['logant', Validators.required],
       password: ['logantpass', Validators.required],

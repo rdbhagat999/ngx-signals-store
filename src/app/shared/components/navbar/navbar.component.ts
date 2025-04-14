@@ -9,10 +9,11 @@ import {
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserStore } from '../../../store/users.store';
 import { User } from '../../../store/user.model';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, NgOptimizedImage],
   providers: [],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',

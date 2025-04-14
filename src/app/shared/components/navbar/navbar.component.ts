@@ -9,15 +9,14 @@ import {
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserStore } from '../../../store/users.store';
 import { User } from '../../../store/user.model';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-navbar',
-    imports: [RouterLink, RouterLinkActive, AsyncPipe],
-    providers: [],
-    templateUrl: './navbar.component.html',
-    styleUrl: './navbar.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-navbar',
+  imports: [RouterLink, RouterLinkActive],
+  providers: [],
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements OnInit {
   readonly userStore = inject(UserStore);

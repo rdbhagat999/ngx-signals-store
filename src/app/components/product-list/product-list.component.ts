@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,12 +8,12 @@ import { ProductStore } from '../../store/products.store';
 import { ProductListItemComponent } from './product-list-item/product-list-item.component';
 
 @Component({
-    selector: 'app-product-list',
-    imports: [JsonPipe, ProductListItemComponent],
-    providers: [],
-    templateUrl: './product-list.component.html',
-    styleUrl: './product-list.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-product-list',
+  imports: [ProductListItemComponent],
+  providers: [],
+  templateUrl: './product-list.component.html',
+  styleUrl: './product-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListComponent implements OnInit {
   readonly productStore = inject(ProductStore);

@@ -5,16 +5,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { UserListItemComponent } from './user-list-item/user-list-item.component';
-import { JsonPipe } from '@angular/common';
 import { UserStore } from '../../store/users.store';
 
 @Component({
-    selector: 'app-user-list',
-    imports: [JsonPipe, UserListItemComponent],
-    providers: [],
-    templateUrl: './user-list.component.html',
-    styleUrl: './user-list.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-user-list',
+  imports: [UserListItemComponent],
+  providers: [],
+  templateUrl: './user-list.component.html',
+  styleUrl: './user-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent implements OnInit {
   readonly userStore = inject(UserStore);

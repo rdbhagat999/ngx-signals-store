@@ -1,4 +1,5 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   effect,
@@ -27,11 +28,13 @@ export class AppComponent implements OnInit {
   readonly sessionStorageService = inject(SessionStorageService);
 
   constructor() {
-    initFlowbite();
-    this.userStore.updateAuthstate(
-      this.sessionStorageService.getItem(AUTH_USER_KEY),
-      this.sessionStorageService.getItem(AUTH_USER_KEY) ? true : false
-    );
+    afterNextRender(() => {
+      initFlowbite();
+      this.userStore.updateAuthstate(
+        this.sessionStorageService.getItem(AUTH_USER_KEY),
+        this.sessionStorageService.getItem(AUTH_USER_KEY) ? true : false
+      );
+    });
   }
 
   ngOnInit(): void {

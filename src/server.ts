@@ -5,7 +5,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
-import { dirname, resolve } from 'node:path';
+import path, { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
@@ -25,24 +25,6 @@ const angularApp = new AngularNodeAppEngine();
  * });
  * ```
  */
-
-// Add robots.txt route
-app.get('/robots.txt', (req, res) => {
-  const productionRules = `User-agent: *
-Allow: /
-`;
-
-  const developmentRules = `User-agent: *
-Disallow: /`;
-
-  const content =
-    process.env['NODE_ENV'] === 'production'
-      ? productionRules
-      : developmentRules;
-
-  res.type('text/plain');
-  res.send(content);
-});
 
 /**
  * Serve static files from /browser

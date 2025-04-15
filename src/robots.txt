@@ -1,0 +1,3 @@
+# Allow all user agents to access everything
+User-agent: *
+Disallow:
